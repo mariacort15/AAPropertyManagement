@@ -3,8 +3,19 @@ import PropertyFilters from "./PropertyFilters";
 import PropertyList from './components/propertyList';
 import React from 'react';
 import './PropertiesList.css';
+import PropertyCard from "./PropertyCard";
 
-export default function PropertyList() {
+export default function PropertyList({ Properties }) {
+  if (!properties.length) return <p>No properties found.</p>;
+
+  return (
+    <div className="d-flex flex-wrap gap-4">
+      {properties.map(p => (
+        <PropertyCard key={p.id} property={p} />
+      ))}
+    </div>
+  );
+  
   const [properties, setProperties] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [error, setError] = useState(null);

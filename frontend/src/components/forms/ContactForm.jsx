@@ -1,13 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import "./ContactForm.css";
 import { api } from "../../lib/api";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState(null);
   const [success, setSuccess] = useState(false);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,25 +29,69 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-3 border rounded bg-light">
-      {success && <div className="alert alert-success">Message sent! We’ll get back to you soon.</div>}
-      <div className="mb-3">
-        <label>Name</label>
-        <input className="form-control" name="name" value={form.name} onChange={handleChange} required />
-      </div>
-      <div className="mb-3">
-        <label>Email</label>
-        <input className="form-control" name="email" value={form.email} onChange={handleChange} required />
-      </div>
-      <div className="mb-3">
-        <label>Subject</label>
-        <input className="form-control" name="subject" value={form.subject} onChange={handleChange} required />
-      </div>
-      <div className="mb-3">
-        <label>Message</label>
-        <textarea className="form-control" name="message" rows="4" value={form.message} onChange={handleChange} required />
-      </div>
-      <button className="btn btn-success">Send Message</button>
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <h2>Contact Us</h2>
+
+      {success && (
+        <div className="alert alert-success">Your message has been sent! We will get back to you soon.
+        </div>
+      )}
+
+      {status === "error" && (
+        <div className="alert alert-danger">Something went wrong. Please try again later.
+        </div>
+      )}
+
+      <label htmlFor="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="subject">Subject</label>
+      <input
+        type="text"
+        id="subject"
+        name="subject"
+        value={formData.subject}
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="message">Message</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        value={formData.message}
+        onChange={handleChange}
+        required
+      />
+
+      <button type="submit">
+        {status === "loading" ? "Sending..." : "Send Message"}
+      </button>
+
+      {status === "success" && (
+        <p className="success">Message sent successfully!</p>
+      )}
+      {status === "error" && (
+        <p className="error">Something went wrong. Please try again.</p>
+      )}
     </form>
   );
-}
+};

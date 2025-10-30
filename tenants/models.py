@@ -8,6 +8,8 @@ class TenantResource(models.Model):
     lease_end = models.DateField()
     rent_amount = models.DecimalField(max_digits=8, decimal_places=2)
     email = models.EmailField()
+    description = models.TextField()
+    link = models.URLField(blank=True)
 
     def __str__(self):
-        return f"{self.tenant_name} - Unit {self.unit_number}"
+        return self.title

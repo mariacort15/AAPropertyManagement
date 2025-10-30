@@ -1,5 +1,5 @@
 import React from 'react';
-import './PropertyDetails.css';
+import '../pages/PropertyDetails.css';
 
 const PropertyDetails = () => {
   const property = {

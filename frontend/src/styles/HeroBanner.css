@@ -5,6 +5,9 @@
   background-position: center;
   height: 70vh;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .overlay {
@@ -14,6 +17,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  border-radius: 10px;
 }
 
 .overlay h1 {
